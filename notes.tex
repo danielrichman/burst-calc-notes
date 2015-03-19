@@ -5,24 +5,24 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{hyperref}
 
 \begin{document}
 
 \title{Burst Calculator}
 
-There are three key modles/assumptions/components in the busrt calculator:
+There are three key models/assumptions/components in the busrt calculator:
 
 \begin{itemize}
     \item A simple model, that works at sea-level (only), gives us
           relates (mass of helium) to (sea level ascent rate).
     \item The ascent rate is approximately constant wrt. height
     \item A basic pressure model for the Earth, coupled with the `fact'
-          that the pressure inside \& outside the balloon is equal, giving
-          a relationship between (mass of helium) and (burst altitude)
+          that the pressure \& temperature inside \& outside the balloon are
+          equal, giving a relationship between (mass of helium) and (burst altitude).
 \end{itemize}
 
-all of these assumptions are wrong, to varying degrees.
-I'll discuss that later.
+All of these assumptions are wrong, to varying degrees.
 
 \setcounter{section}{-1}
 \section{Letters}
@@ -38,21 +38,21 @@ I'll discuss that later.
     a_0 &= \text{initial altitude} &
     r_B &= \text{burst radius of balloon} \\
     P_0 &= \text{pressure at sea level} \\
-
+%
 \intertext{and are interested in these (related) things, some of which
            will be specified, and some will be calculated}
     V_0 &= \text{volume of balloon at launch} &
     a_B &= \text{burst altitude} \\
-    v_0 &= \text{instantaneous ascent just rate after launch} &
+    v_0 &= \text{instantaneous ascent rate just after launch} &
     T &= \text{time until burst} \\
-
+%
 \intertext{we have these trivial relationships}
     V_0 &= \frac{4}{3} \pi r_0^3 &
     V_B &= \frac{4}{3} \pi r_B^3 \\
     m_G &= V_0 \rho_{G,0} \quad \text{mass of gas} &
     m &= m_B + m_P + m_G \\
-    A_0 &= \pi r_0^2 \quad \text{crossectional area at launch} \\
-
+    A_0 &= \pi r_0^2 \quad \text{cross-sectional area at launch} \\
+%
 \end{align*}
 
 \section{Sea level ascent rate}
@@ -61,15 +61,15 @@ The balloon reaches equilibrium/terminal velocity almost instantly,
 so we can calculate this by equating forces vertically.
 
 \begin{align*}
-    \text{Gravity} & -mg \\
-    \text{Buoyancy} & \rho_{A,0} g V_0 \\
-    \text{Drag} & -\frac{1}{2} \rho_{A,0} C_D A_0 v_0^2
+    \text{Gravity} && -mg \\
+    \text{Buoyancy} && \rho_{A,0} g V_0 \\
+    \text{Drag} && -\frac{1}{2} \rho_{A,0} C_D A_0 v_0^2
 \end{align*}
 
 We can solve for $v_0$ in terms of $r_0$:
 
 \[
-    $v_0$
+    v_0
     = \sqrt{
         \frac{ \rho_{A,0}gV_0 - mg }%
              { \frac{1}{2} \rho_{A,0} C_D A_0 }
@@ -96,16 +96,14 @@ that it has exactly one real root, which moreover is positive.
 
 \section{Ascent rate is constant}
 
-This is approximately correct. It's quite close to a straight line.
+This is approximately correct. It's quite close to a straight line
+(try plotting it; then try numerically differentiating and plotting that).
 
-It's worth noting that the model described above does not even remotely hold above
-sea level; in fact it predicts that the ascent rate will be directly proportional
+It's worth noting that the model described in the first section does not even remotely hold
+above sea level; in fact it predicts that the ascent rate will be directly proportional
 to $\sqrt{r}$ (where $r$ is the radius of the balloon). Since our balloons pop at over
 $3$ times the launch radius, and the ascent rate is fairly constant,
 this is not consistent with reality.
-
-However, if you do plot ascent rate vs. altitude, you would note that it's not really
-constant.
 
 This paper \url{http://www.atmos-meas-tech.net/4/2235/2011/amt-4-2235-2011.pdf} presents
 a substantially more advanced model (after introducing the above model and explaining
@@ -126,11 +124,12 @@ We assume that the pressure and temperature inside the balloon is equal
 to the pressure and temperature outside of the balloon.
 
 The balloon gas, and the amount of air displaced by the balloon, both
-obey the ideal gas law $PV=nRT$. $R$ is a constant, and $\frac{PV}{RT}$ is
-equal for both gases. Therefore, the number of moles of balloon gas $n_G$ is
-equal to the number of moles of air displaed $n_A$. But $n_G$ is constant
-wrt. time and altitude, so $n_A$ is constant wrt. altitude. In particular,
-the mass of air displaced remains constant.
+obey the ideal gas law $PV=nRT$. By various assumptions, $\frac{PV}{RT}$ is
+equal for both gases ($R$ is a constant).
+Therefore, the number of moles of balloon gas $n_G$ is equal to the number
+of moles of air displaed $n_A$. But $n_G$ is constant wrt. time and altitude,
+so $n_A$ is constant wrt. altitude. In particular, the mass of air displaced
+remains constant.
 
 This relates volume $V$ at altitude $a$ to air density: 
 \[
@@ -143,4 +142,6 @@ The balloon bursts when the radius is $r_B$, i.e., when its volume is $V_B$, so
     \rho_{A,0} r_0^3 = \rho(a_B) r_B^3
 \]
 
+There's a discussion of how the temeperature outside and inside differs in
+the paper linked above. It is however close enough (we think).
 \end{document}
